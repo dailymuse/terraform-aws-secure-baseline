@@ -12,10 +12,14 @@
 |------|-------------|:----:|:-----:|:-----:|
 | allow\_users\_to\_change\_password | Whether to allow users to change their own password. | string | `"true"` | no |
 | aws\_account\_id | The AWS Account ID number of the account. | string | n/a | yes |
+| manager\_iam\_role\_enabled | Indicate if Terraform will create/update/delete the manager IAM role. | string | `"true"` | no |
 | manager\_iam\_role\_name | The name of the IAM Manager role. | string | `"IAM-Manager"` | no |
 | manager\_iam\_role\_policy\_name | The name of the IAM Manager role policy. | string | `"IAM-Manager-Policy"` | no |
+| manager\_iam\_role\_policy\_json | Custom json to use for the role policy. The default allows the (dis)association of users and groups. | string | `""` | no |
+| master\_iam\_role\_enabled | Indicate if Terraform will create/update/delete the master IAM role. | string | `"true"` | no |
 | master\_iam\_role\_name | The name of the IAM Master role. | string | `"IAM-Master"` | no |
 | master\_iam\_role\_policy\_name | The name of the IAM Master role policy. | string | `"IAM-Master-Policy"` | no |
+| master\_iam\_role\_policy\_json | TCustom json to use for the role policy. The default allows management of users, groups, and roles. | string | `""` | no |
 | max\_password\_age | The number of days that an user password is valid. | string | `"90"` | no |
 | minimum\_password\_length | Minimum length to require for user passwords. | string | `"14"` | no |
 | password\_reuse\_prevention | The number of previous passwords that users are prevented from reusing. | string | `"24"` | no |

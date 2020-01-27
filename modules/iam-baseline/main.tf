@@ -27,6 +27,8 @@ data "aws_iam_policy_document" "master_assume_policy" {
 }
 
 resource "aws_iam_role" "master" {
+  count = var.master_iam_role_enabled == "true" ? 1 : 0
+
   name               = var.master_iam_role_name
   assume_role_policy = data.aws_iam_policy_document.master_assume_policy.json
 
@@ -69,10 +71,12 @@ data "aws_iam_policy_document" "master_policy" {
 }
 
 resource "aws_iam_role_policy" "master_policy" {
-  name = var.master_iam_role_policy_name
-  role = aws_iam_role.master.id
+  count = var.master_iam_role_enabled == "true" ? 1 : 0
 
-  policy = data.aws_iam_policy_document.master_policy.json
+  name = var.master_iam_role_policy_name
+  role = aws_iam_role.master[count.index].id
+
+  policy = var.master_iam_role_policy_json != "" ? var.master_iam_role_policy_json : data.aws_iam_policy_document.master_policy.json
 }
 
 data "aws_iam_policy_document" "manager_assume_policy" {
@@ -86,6 +90,8 @@ data "aws_iam_policy_document" "manager_assume_policy" {
 }
 
 resource "aws_iam_role" "manager" {
+  count = var.manager_iam_role_enabled == "true" ? 1 : 0
+
   name               = var.manager_iam_role_name
   assume_role_policy = data.aws_iam_policy_document.manager_assume_policy.json
 
@@ -128,9 +134,11 @@ data "aws_iam_policy_document" "manager_policy" {
 }
 
 resource "aws_iam_role_policy" "manager_policy" {
+  count = var.manager_iam_role_enabled == "true" ? 1 : 0
+
   name   = var.manager_iam_role_policy_name
-  role   = aws_iam_role.manager.id
-  policy = data.aws_iam_policy_document.manager_policy.json
+  role   = aws_iam_role.manager[count.index].id
+  policy = var.manager_iam_role_policy_json != "" ? var.manager_iam_role_policy_json : data.aws_iam_policy_document.manager_policy.json
 }
 
 # --------------------------------------------------------------------------------------------------
@@ -157,4 +165,3 @@ resource "aws_iam_role_policy_attachment" "support_policy" {
   role       = aws_iam_role.support.id
   policy_arn = "arn:aws:iam::aws:policy/AWSSupportAccess"
 }
-
