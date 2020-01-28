@@ -2,6 +2,11 @@ variable "aws_account_id" {
   description = "The AWS Account ID number of the account."
 }
 
+variable "master_iam_role_enabled" {
+  description = "Indicate if Terraform will create/update/delete the manager IAM role."
+  default     = "true"
+}
+
 variable "master_iam_role_name" {
   description = "The name of the IAM Master role."
   default     = "IAM-Master"
@@ -12,6 +17,21 @@ variable "master_iam_role_policy_name" {
   default     = "IAM-Master-Policy"
 }
 
+variable "master_iam_role_policy_json" {
+  description = "Custom json to use for the role policy. The default allows management of users, groups, and roles."
+  default     = ""
+}
+
+variable "master_iam_role_permissions_boundary_arn" {
+  description = "Permissions boundary arn to attach to the master IAM role."
+  default     = ""
+}
+
+variable "manager_iam_role_enabled" {
+  description = "Indicate if Terraform will create/update/delete the manager IAM role."
+  default     = "true"
+}
+
 variable "manager_iam_role_name" {
   description = "The name of the IAM Manager role."
   default     = "IAM-Manager"
@@ -20,6 +40,16 @@ variable "manager_iam_role_name" {
 variable "manager_iam_role_policy_name" {
   description = "The name of the IAM Manager role policy."
   default     = "IAM-Manager-Policy"
+}
+
+variable "manager_iam_role_policy_json" {
+  description = "Custom json to use for the role policy. The default allows the (dis)association of users and groups."
+  default     = ""
+}
+
+variable "manager_iam_role_permissions_boundary_arn" {
+  description = "Permissions boundary arn to attach to the manager IAM role."
+  default     = ""
 }
 
 variable "support_iam_role_name" {
@@ -35,6 +65,11 @@ variable "support_iam_role_policy_name" {
 variable "support_iam_role_principal_arns" {
   type        = list
   description = "List of ARNs of the IAM principal elements by which the support role could be assumed."
+}
+
+variable "support_iam_role_permissions_boundary_arn" {
+  description = "Permissions boundary arn to attach to the support IAM role."
+  default     = ""
 }
 
 variable "max_password_age" {
@@ -83,4 +118,3 @@ variable "tags" {
     "Terraform" = true
   }
 }
-
