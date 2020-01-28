@@ -22,6 +22,11 @@ variable "master_iam_role_policy_json" {
   default     = ""
 }
 
+variable "master_iam_role_permissions_boundary_arn" {
+  description = "Permissions boundary arn to attach to the master IAM role."
+  default     = ""
+}
+
 variable "manager_iam_role_enabled" {
   description = "Indicate if Terraform will create/update/delete the manager IAM role."
   default     = "true"
@@ -42,6 +47,11 @@ variable "manager_iam_role_policy_json" {
   default     = ""
 }
 
+variable "manager_iam_role_permissions_boundary_arn" {
+  description = "Permissions boundary arn to attach to the manager IAM role."
+  default     = ""
+}
+
 variable "support_iam_role_name" {
   description = "The name of the the support role."
   default     = "IAM-Support"
@@ -55,6 +65,11 @@ variable "support_iam_role_policy_name" {
 variable "support_iam_role_principal_arns" {
   type        = list
   description = "List of ARNs of the IAM principal elements by which the support role could be assumed."
+}
+
+variable "support_iam_role_permissions_boundary_arn" {
+  description = "Permissions boundary arn to attach to the support IAM role."
+  default     = ""
 }
 
 variable "max_password_age" {
