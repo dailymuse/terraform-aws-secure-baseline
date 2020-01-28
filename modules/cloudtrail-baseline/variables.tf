@@ -32,6 +32,11 @@ variable "iam_role_name" {
   default     = "CloudTrail-CloudWatch-Delivery-Role"
 }
 
+variable "iam_role_permissions_boundary_arn" {
+  description = "ARN for a permissions boundary policy to apply to the delivery role."
+  default     = ""
+}
+
 variable "iam_role_policy_name" {
   description = "The name of the IAM Role Policy to be used by CloudTrail to delivery logs to CloudWatch Logs group."
   default     = "CloudTrail-CloudWatch-Delivery-Policy"
